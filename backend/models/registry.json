@@ -1,0 +1,79 @@
+[
+  {
+    "model_id": "urbanflux_hgb_ref",
+    "model_name": "HistGradientBoosting reference (physics-checked)",
+    "version": "202609151945",
+    "training_date": "2026-09-15T19:45:55.052116+00:00",
+    "training_regions": [
+      "demo-global-synthetic"
+    ],
+    "features": [
+      "ndvi",
+      "ndbi",
+      "ndwi",
+      "albedo",
+      "population_density",
+      "t2m",
+      "wind",
+      "solar",
+      "sin_doy",
+      "cos_doy"
+    ],
+    "metrics": {
+      "cv_folds": [
+        {
+          "mae": 1.146,
+          "rmse": 1.505,
+          "r2": 0.92
+        },
+        {
+          "mae": 1.168,
+          "rmse": 1.5,
+          "r2": 0.926
+        },
+        {
+          "mae": 1.247,
+          "rmse": 1.629,
+          "r2": 0.906
+        },
+        {
+          "mae": 1.146,
+          "rmse": 1.467,
+          "r2": 0.915
+        },
+        {
+          "mae": 1.182,
+          "rmse": 1.563,
+          "r2": 0.929
+        }
+      ],
+      "mae": 1.178,
+      "rmse": 1.534,
+      "r2": 0.92
+    },
+    "artifact_path": "urbanflux_hgb_ref_202609151945.joblib",
+    "artifact_sha256": "2b0cc021ac81274a8980613cac0ff76039d42b7cc41f303e6b678c0f3822e2c0",
+    "plausibility_range": [
+      18.0,
+      58.0
+    ],
+    "physics_check": {
+      "ndvi_monotone": true,
+      "ndvi_effect_degC": -3.813
+    },
+    "training_domains": {
+      "climates": [
+        "tropical",
+        "temperate",
+        "arid",
+        "semi-arid",
+        "continental"
+      ],
+      "latitude_range": [
+        -60,
+        70
+      ]
+    },
+    "validation_method": "spatial block CV (GroupKFold, 16-cell blocks)"
+  }
+]
