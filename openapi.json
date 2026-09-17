@@ -1,0 +1,3110 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "UrbanFlux API",
+    "description": "UrbanFlux \u2014 Urban Heat Intelligence Platform. All demo-mode outputs are flagged `scenario_type: DEMO`.",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/health": {
+      "get": {
+        "tags": [
+          "health"
+        ],
+        "summary": "Health",
+        "operationId": "health_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Health Health Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ready": {
+      "get": {
+        "tags": [
+          "health"
+        ],
+        "summary": "Ready",
+        "operationId": "ready_ready_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Ready Ready Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/cities": {
+      "get": {
+        "tags": [
+          "cities & AOI"
+        ],
+        "summary": "List Cities",
+        "operationId": "list_cities_api_v1_cities_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_list_City__"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/cities/{city_id}": {
+      "get": {
+        "tags": [
+          "cities & AOI"
+        ],
+        "summary": "Get City",
+        "operationId": "get_city_api_v1_cities__city_id__get",
+        "parameters": [
+          {
+            "name": "city_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "City Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_City_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/aoi": {
+      "get": {
+        "tags": [
+          "cities & AOI"
+        ],
+        "summary": "List Aois",
+        "operationId": "list_aois_api_v1_aoi_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response List Aois Api V1 Aoi Get"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "cities & AOI"
+        ],
+        "summary": "Create Aoi",
+        "operationId": "create_aoi_api_v1_aoi_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AOICreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_AOI_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/aoi/{aoi_id}": {
+      "get": {
+        "tags": [
+          "cities & AOI"
+        ],
+        "summary": "Get Aoi",
+        "operationId": "get_aoi_api_v1_aoi__aoi_id__get",
+        "parameters": [
+          {
+            "name": "aoi_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Aoi Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_AOI_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/geocode": {
+      "get": {
+        "tags": [
+          "cities & AOI"
+        ],
+        "summary": "Geocode",
+        "operationId": "geocode_api_v1_geocode_get",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 2,
+              "maxLength": 200,
+              "title": "Q"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 5,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Geocode Api V1 Geocode Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/heat/{city_id}": {
+      "get": {
+        "tags": [
+          "heat"
+        ],
+        "summary": "Heat Layer",
+        "operationId": "heat_layer_api_v1_heat__city_id__get",
+        "parameters": [
+          {
+            "name": "city_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "City Id"
+            }
+          },
+          {
+            "name": "layer",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "lst",
+              "title": "Layer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Heat Layer Api V1 Heat  City Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/heat/{city_id}/summary": {
+      "get": {
+        "tags": [
+          "heat"
+        ],
+        "summary": "Heat Summary",
+        "operationId": "heat_summary_api_v1_heat__city_id__summary_get",
+        "parameters": [
+          {
+            "name": "city_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "City Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_HeatSummary_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/heat/{city_id}/cell": {
+      "get": {
+        "tags": [
+          "heat"
+        ],
+        "summary": "Inspect Cell",
+        "description": "Pixel inspector: coordinates, values, and full provenance per cell.",
+        "operationId": "inspect_cell_api_v1_heat__city_id__cell_get",
+        "parameters": [
+          {
+            "name": "city_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "City Id"
+            }
+          },
+          {
+            "name": "index",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "exclusiveMaximum": 1600,
+              "title": "Index"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Inspect Cell Api V1 Heat  City Id  Cell Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/data-sources/{aoi_id}": {
+      "get": {
+        "tags": [
+          "heat"
+        ],
+        "summary": "Data Sources",
+        "operationId": "data_sources_api_v1_data_sources__aoi_id__get",
+        "parameters": [
+          {
+            "name": "aoi_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Aoi Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Data Sources Api V1 Data Sources  Aoi Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/hotspots/{city_id}": {
+      "get": {
+        "tags": [
+          "hotspots"
+        ],
+        "summary": "List Hotspots",
+        "operationId": "list_hotspots_api_v1_hotspots__city_id__get",
+        "parameters": [
+          {
+            "name": "city_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "City Id"
+            }
+          },
+          {
+            "name": "method",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "adaptive_percentile",
+              "title": "Method"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_list_Hotspot__"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/hotspots/{city_id}/{hotspot_id}": {
+      "get": {
+        "tags": [
+          "hotspots"
+        ],
+        "summary": "Get Hotspot",
+        "operationId": "get_hotspot_api_v1_hotspots__city_id___hotspot_id__get",
+        "parameters": [
+          {
+            "name": "city_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "City Id"
+            }
+          },
+          {
+            "name": "hotspot_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Hotspot Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_Hotspot_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/hotspots/{city_id}/{hotspot_id}/explanation": {
+      "get": {
+        "tags": [
+          "hotspots"
+        ],
+        "summary": "Explain Hotspot",
+        "description": "Driver explanation for one hotspot.\n\nServed from the trained model artifact via exact tree SHAP when\navailable; otherwise the demo feature contributions with explicit\nLOW-confidence caveats. Never presented as causal effects.",
+        "operationId": "explain_hotspot_api_v1_hotspots__city_id___hotspot_id__explanation_get",
+        "parameters": [
+          {
+            "name": "city_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "City Id"
+            }
+          },
+          {
+            "name": "hotspot_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Hotspot Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Explain Hotspot Api V1 Hotspots  City Id   Hotspot Id  Explanation Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/models": {
+      "get": {
+        "tags": [
+          "models"
+        ],
+        "summary": "List Models",
+        "operationId": "list_models_api_v1_models_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response List Models Api V1 Models Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/models/{model_id}": {
+      "get": {
+        "tags": [
+          "models"
+        ],
+        "summary": "Get Model",
+        "operationId": "get_model_api_v1_models__model_id__get",
+        "parameters": [
+          {
+            "name": "model_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Model Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Get Model Api V1 Models  Model Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/models/{model_id}/validity": {
+      "get": {
+        "tags": [
+          "models"
+        ],
+        "summary": "Model Validity",
+        "operationId": "model_validity_api_v1_models__model_id__validity_get",
+        "parameters": [
+          {
+            "name": "model_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Model Id"
+            }
+          },
+          {
+            "name": "climate",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "semi-arid",
+              "title": "Climate"
+            }
+          },
+          {
+            "name": "latitude",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "default": 28.6,
+              "title": "Latitude"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Model Validity Api V1 Models  Model Id  Validity Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scenarios": {
+      "post": {
+        "tags": [
+          "scenarios"
+        ],
+        "summary": "Create Scenario",
+        "operationId": "create_scenario_api_v1_scenarios_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ScenarioCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_ScenarioResponseData_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scenarios/{scenario_id}": {
+      "get": {
+        "tags": [
+          "scenarios"
+        ],
+        "summary": "Get Scenario",
+        "operationId": "get_scenario_api_v1_scenarios__scenario_id__get",
+        "parameters": [
+          {
+            "name": "scenario_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Scenario Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_ScenarioRecord_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scenarios/{scenario_id}/simulate": {
+      "post": {
+        "tags": [
+          "scenarios"
+        ],
+        "summary": "Resimulate",
+        "operationId": "resimulate_api_v1_scenarios__scenario_id__simulate_post",
+        "parameters": [
+          {
+            "name": "scenario_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Scenario Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_ScenarioResponseData_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scenarios/compare": {
+      "post": {
+        "tags": [
+          "scenarios"
+        ],
+        "summary": "Compare Scenarios",
+        "operationId": "compare_scenarios_api_v1_scenarios_compare_post",
+        "parameters": [
+          {
+            "name": "a_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "A Id"
+            }
+          },
+          {
+            "name": "b_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "B Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Compare Scenarios Api V1 Scenarios Compare Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/optimization": {
+      "post": {
+        "tags": [
+          "optimization"
+        ],
+        "summary": "Run Optimization",
+        "operationId": "run_optimization_api_v1_optimization_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OptimizationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_OptimizationRunData_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/optimization/{run_id}": {
+      "get": {
+        "tags": [
+          "optimization"
+        ],
+        "summary": "Get Run",
+        "operationId": "get_run_api_v1_optimization__run_id__get",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Get Run Api V1 Optimization  Run Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/optimization/{run_id}/solutions": {
+      "get": {
+        "tags": [
+          "optimization"
+        ],
+        "summary": "Get Solutions",
+        "operationId": "get_solutions_api_v1_optimization__run_id__solutions_get",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Get Solutions Api V1 Optimization  Run Id  Solutions Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/rag/query": {
+      "post": {
+        "tags": [
+          "rag"
+        ],
+        "summary": "Rag Query",
+        "operationId": "rag_query_api_v1_rag_query_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RagQuery"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Rag Query Api V1 Rag Query Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/rag/sources": {
+      "get": {
+        "tags": [
+          "rag"
+        ],
+        "summary": "Rag Sources",
+        "operationId": "rag_sources_api_v1_rag_sources_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Rag Sources Api V1 Rag Sources Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/rag/recommendations": {
+      "post": {
+        "tags": [
+          "rag"
+        ],
+        "summary": "Rag Recommendations",
+        "operationId": "rag_recommendations_api_v1_rag_recommendations_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RagQuery"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Rag Recommendations Api V1 Rag Recommendations Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/rag/recommendations/{rec_id}": {
+      "get": {
+        "tags": [
+          "rag"
+        ],
+        "summary": "Get Recommendation",
+        "operationId": "get_recommendation_api_v1_rag_recommendations__rec_id__get",
+        "parameters": [
+          {
+            "name": "rec_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Rec Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Get Recommendation Api V1 Rag Recommendations  Rec Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/history/{aoi_id}/availability": {
+      "get": {
+        "tags": [
+          "history"
+        ],
+        "summary": "Availability",
+        "operationId": "availability_api_v1_history__aoi_id__availability_get",
+        "parameters": [
+          {
+            "name": "aoi_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Aoi Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Availability Api V1 History  Aoi Id  Availability Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/history/{aoi_id}/timeline": {
+      "get": {
+        "tags": [
+          "history"
+        ],
+        "summary": "Timeline",
+        "operationId": "timeline_api_v1_history__aoi_id__timeline_get",
+        "parameters": [
+          {
+            "name": "aoi_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Aoi Id"
+            }
+          },
+          {
+            "name": "variable",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "lst",
+              "title": "Variable"
+            }
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 2026,
+              "minimum": 1972,
+              "default": 1982,
+              "title": "Start"
+            }
+          },
+          {
+            "name": "end",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 2026,
+              "minimum": 1972,
+              "default": 2026,
+              "title": "End"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Timeline Api V1 History  Aoi Id  Timeline Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/history/{aoi_id}/frame": {
+      "get": {
+        "tags": [
+          "history"
+        ],
+        "summary": "Frame",
+        "operationId": "frame_api_v1_history__aoi_id__frame_get",
+        "parameters": [
+          {
+            "name": "aoi_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Aoi Id"
+            }
+          },
+          {
+            "name": "year",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "maximum": 2026,
+              "minimum": 1972,
+              "title": "Year"
+            }
+          },
+          {
+            "name": "month",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 12,
+              "minimum": 1,
+              "default": 5,
+              "title": "Month"
+            }
+          },
+          {
+            "name": "day",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 31,
+              "minimum": 1,
+              "default": 15,
+              "title": "Day"
+            }
+          },
+          {
+            "name": "variable",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "lst",
+              "title": "Variable"
+            }
+          },
+          {
+            "name": "max_cloud",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "maximum": 100.0,
+              "minimum": 0.0,
+              "default": 20.0,
+              "title": "Max Cloud"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Frame Api V1 History  Aoi Id  Frame Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/history/{aoi_id}/timeseries": {
+      "get": {
+        "tags": [
+          "history"
+        ],
+        "summary": "Timeseries Ep",
+        "operationId": "timeseries_ep_api_v1_history__aoi_id__timeseries_get",
+        "parameters": [
+          {
+            "name": "aoi_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Aoi Id"
+            }
+          },
+          {
+            "name": "resolution",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "pattern": "^(annual|monthly|seasonal|summer|custom)$",
+              "default": "annual",
+              "title": "Resolution"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Timeseries Ep Api V1 History  Aoi Id  Timeseries Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/history/{aoi_id}/compare": {
+      "post": {
+        "tags": [
+          "history"
+        ],
+        "summary": "Compare",
+        "description": "Season-matched A/B comparison (spec \u00a7116).\n\nRefuses comparisons across non-matching seasons unless explicitly\nacknowledged, because a January-vs-June comparison says more about\nseasons than about change.",
+        "operationId": "compare_api_v1_history__aoi_id__compare_post",
+        "parameters": [
+          {
+            "name": "aoi_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Aoi Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompareRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Compare Api V1 History  Aoi Id  Compare Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/satellites": {
+      "get": {
+        "tags": [
+          "satellites"
+        ],
+        "summary": "List Satellites",
+        "operationId": "list_satellites_api_v1_satellites_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response List Satellites Api V1 Satellites Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/satellites/{mission}": {
+      "get": {
+        "tags": [
+          "satellites"
+        ],
+        "summary": "Get Mission",
+        "operationId": "get_mission_api_v1_satellites__mission__get",
+        "parameters": [
+          {
+            "name": "mission",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Mission"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Get Mission Api V1 Satellites  Mission  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/analysis/{aoi_id}/run": {
+      "post": {
+        "tags": [
+          "explorer"
+        ],
+        "summary": "Run Analysis",
+        "operationId": "run_analysis_api_v1_analysis__aoi_id__run_post",
+        "parameters": [
+          {
+            "name": "aoi_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Aoi Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Run Analysis Api V1 Analysis  Aoi Id  Run Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/analysis/job/{job_id}": {
+      "get": {
+        "tags": [
+          "explorer"
+        ],
+        "summary": "Job Status",
+        "operationId": "job_status_api_v1_analysis_job__job_id__get",
+        "parameters": [
+          {
+            "name": "job_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Job Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Job Status Api V1 Analysis Job  Job Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/explorer/resolve": {
+      "get": {
+        "tags": [
+          "explorer"
+        ],
+        "summary": "Resolve Source",
+        "operationId": "resolve_source_api_v1_explorer_resolve_get",
+        "parameters": [
+          {
+            "name": "variable",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "lst",
+              "title": "Variable"
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "2026-05-14",
+              "title": "Date"
+            }
+          },
+          {
+            "name": "max_cloud",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "maximum": 100.0,
+              "minimum": 0.0,
+              "default": 20.0,
+              "title": "Max Cloud"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Resolve Source Api V1 Explorer Resolve Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/explorer/auto-resolution": {
+      "get": {
+        "tags": [
+          "explorer"
+        ],
+        "summary": "Auto Resolution",
+        "description": "AUTO RESOLUTION: grid sized to AOI area and limiting source (spec \u00a7159).",
+        "operationId": "auto_resolution_api_v1_explorer_auto_resolution_get",
+        "parameters": [
+          {
+            "name": "area_km2",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "maximum": 1000000.0,
+              "exclusiveMinimum": 0.0,
+              "title": "Area Km2"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Auto Resolution Api V1 Explorer Auto Resolution Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "summary": "Root",
+        "operationId": "root__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Root  Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AOI": {
+        "properties": {
+          "aoi_id": {
+            "type": "string",
+            "title": "Aoi Id"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "geometry": {
+            "type": "object",
+            "title": "Geometry"
+          },
+          "centroid": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "title": "Centroid"
+          },
+          "bounding_box": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "title": "Bounding Box"
+          },
+          "country": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Country"
+          },
+          "region": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Region"
+          },
+          "city": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "City"
+          },
+          "area_km2": {
+            "type": "number",
+            "title": "Area Km2"
+          },
+          "requested_resolution": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Requested Resolution"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          },
+          "scenario_type": {
+            "type": "string",
+            "title": "Scenario Type",
+            "default": "DEMO"
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "required": [
+          "aoi_id",
+          "geometry",
+          "centroid",
+          "bounding_box",
+          "area_km2",
+          "created_at"
+        ],
+        "title": "AOI"
+      },
+      "AOICreate": {
+        "properties": {
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "geometry": {
+            "anyOf": [
+              {
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Geometry"
+          },
+          "bbox": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "number"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bbox",
+            "description": "[w, s, e, n]"
+          },
+          "center": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "number"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Center",
+            "description": "[lat, lon]"
+          },
+          "radius_km": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 200.0,
+                "exclusiveMinimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Radius Km"
+          },
+          "country": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Country"
+          },
+          "region": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Region"
+          },
+          "city": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "City"
+          },
+          "requested_resolution": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Requested Resolution"
+          }
+        },
+        "type": "object",
+        "title": "AOICreate"
+      },
+      "City": {
+        "properties": {
+          "city_id": {
+            "type": "string",
+            "title": "City Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "country": {
+            "type": "string",
+            "title": "Country"
+          },
+          "latitude": {
+            "type": "number",
+            "title": "Latitude"
+          },
+          "longitude": {
+            "type": "number",
+            "title": "Longitude"
+          },
+          "bounding_box": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "title": "Bounding Box"
+          },
+          "timezone": {
+            "type": "string",
+            "title": "Timezone"
+          },
+          "default_zoom": {
+            "type": "integer",
+            "title": "Default Zoom"
+          },
+          "available_datasets": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Available Datasets"
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "required": [
+          "city_id",
+          "name",
+          "country",
+          "latitude",
+          "longitude",
+          "bounding_box",
+          "timezone",
+          "default_zoom",
+          "available_datasets"
+        ],
+        "title": "City"
+      },
+      "CompareRequest": {
+        "properties": {
+          "date_a": {
+            "type": "string",
+            "title": "Date A"
+          },
+          "date_b": {
+            "type": "string",
+            "title": "Date B"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "swipe",
+              "opacity",
+              "split",
+              "difference"
+            ],
+            "title": "Mode",
+            "default": "swipe"
+          }
+        },
+        "type": "object",
+        "required": [
+          "date_a",
+          "date_b"
+        ],
+        "title": "CompareRequest"
+      },
+      "Envelope_AOI_": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "default": true
+          },
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AOI"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "meta": {
+            "type": "object",
+            "title": "Meta"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ErrorBody"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "title": "Envelope[AOI]"
+      },
+      "Envelope_City_": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "default": true
+          },
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/City"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "meta": {
+            "type": "object",
+            "title": "Meta"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ErrorBody"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "title": "Envelope[City]"
+      },
+      "Envelope_HeatSummary_": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "default": true
+          },
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/HeatSummary"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "meta": {
+            "type": "object",
+            "title": "Meta"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ErrorBody"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "title": "Envelope[HeatSummary]"
+      },
+      "Envelope_Hotspot_": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "default": true
+          },
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Hotspot"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "meta": {
+            "type": "object",
+            "title": "Meta"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ErrorBody"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "title": "Envelope[Hotspot]"
+      },
+      "Envelope_OptimizationRunData_": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "default": true
+          },
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/OptimizationRunData"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "meta": {
+            "type": "object",
+            "title": "Meta"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ErrorBody"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "title": "Envelope[OptimizationRunData]"
+      },
+      "Envelope_ScenarioRecord_": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "default": true
+          },
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ScenarioRecord"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "meta": {
+            "type": "object",
+            "title": "Meta"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ErrorBody"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "title": "Envelope[ScenarioRecord]"
+      },
+      "Envelope_ScenarioResponseData_": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "default": true
+          },
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ScenarioResponseData"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "meta": {
+            "type": "object",
+            "title": "Meta"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ErrorBody"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "title": "Envelope[ScenarioResponseData]"
+      },
+      "Envelope_list_City__": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "default": true
+          },
+          "data": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/City"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Data"
+          },
+          "meta": {
+            "type": "object",
+            "title": "Meta"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ErrorBody"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "title": "Envelope[list[City]]"
+      },
+      "Envelope_list_Hotspot__": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "default": true
+          },
+          "data": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/Hotspot"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Data"
+          },
+          "meta": {
+            "type": "object",
+            "title": "Meta"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ErrorBody"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "title": "Envelope[list[Hotspot]]"
+      },
+      "ErrorBody": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "required": [
+          "code",
+          "message"
+        ],
+        "title": "ErrorBody"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "HeatSummary": {
+        "properties": {
+          "mean_lst": {
+            "type": "number",
+            "title": "Mean Lst"
+          },
+          "min_lst": {
+            "type": "number",
+            "title": "Min Lst"
+          },
+          "max_lst": {
+            "type": "number",
+            "title": "Max Lst"
+          },
+          "p95_lst": {
+            "type": "number",
+            "title": "P95 Lst"
+          },
+          "hot_cells": {
+            "type": "integer",
+            "title": "Hot Cells"
+          },
+          "extreme_cells": {
+            "type": "integer",
+            "title": "Extreme Cells"
+          },
+          "mean_ndvi": {
+            "type": "number",
+            "title": "Mean Ndvi"
+          },
+          "mean_ndbi": {
+            "type": "number",
+            "title": "Mean Ndbi"
+          },
+          "population_total": {
+            "type": "integer",
+            "title": "Population Total"
+          },
+          "hotspot_count": {
+            "type": "integer",
+            "title": "Hotspot Count"
+          },
+          "acquisition_time": {
+            "type": "string",
+            "title": "Acquisition Time"
+          },
+          "scenario_type": {
+            "type": "string",
+            "title": "Scenario Type",
+            "default": "DEMO"
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "required": [
+          "mean_lst",
+          "min_lst",
+          "max_lst",
+          "p95_lst",
+          "hot_cells",
+          "extreme_cells",
+          "mean_ndvi",
+          "mean_ndbi",
+          "population_total",
+          "hotspot_count",
+          "acquisition_time"
+        ],
+        "title": "HeatSummary"
+      },
+      "Hotspot": {
+        "properties": {
+          "hotspot_id": {
+            "type": "string",
+            "title": "Hotspot Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "intensity": {
+            "type": "string",
+            "title": "Intensity"
+          },
+          "cell": {
+            "$ref": "#/components/schemas/HotspotCell"
+          },
+          "mean_lst": {
+            "type": "number",
+            "title": "Mean Lst"
+          },
+          "peak_lst": {
+            "type": "number",
+            "title": "Peak Lst"
+          },
+          "population_exposed": {
+            "type": "integer",
+            "title": "Population Exposed"
+          },
+          "drivers": {
+            "items": {
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Drivers"
+          },
+          "scenario_type": {
+            "type": "string",
+            "title": "Scenario Type",
+            "default": "DEMO"
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "required": [
+          "hotspot_id",
+          "name",
+          "intensity",
+          "cell",
+          "mean_lst",
+          "peak_lst",
+          "population_exposed"
+        ],
+        "title": "Hotspot"
+      },
+      "HotspotCell": {
+        "properties": {
+          "cell_index": {
+            "type": "integer",
+            "title": "Cell Index"
+          },
+          "x": {
+            "type": "integer",
+            "title": "X"
+          },
+          "y": {
+            "type": "integer",
+            "title": "Y"
+          },
+          "lat": {
+            "type": "number",
+            "title": "Lat"
+          },
+          "lon": {
+            "type": "number",
+            "title": "Lon"
+          },
+          "lst": {
+            "type": "number",
+            "title": "Lst"
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "required": [
+          "cell_index",
+          "x",
+          "y",
+          "lat",
+          "lon",
+          "lst"
+        ],
+        "title": "HotspotCell"
+      },
+      "OptimizationRecommendation": {
+        "properties": {
+          "interventions": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Interventions"
+          },
+          "mean_cooling_deg_c": {
+            "type": "number",
+            "title": "Mean Cooling Deg C"
+          },
+          "cost_usd": {
+            "type": "number",
+            "title": "Cost Usd"
+          },
+          "population_benefited": {
+            "type": "integer",
+            "title": "Population Benefited"
+          },
+          "feasibility": {
+            "type": "number",
+            "title": "Feasibility"
+          },
+          "solution_id": {
+            "type": "string",
+            "title": "Solution Id"
+          },
+          "scenario_type": {
+            "type": "string",
+            "title": "Scenario Type",
+            "default": "DEMO"
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "required": [
+          "interventions",
+          "mean_cooling_deg_c",
+          "cost_usd",
+          "population_benefited",
+          "feasibility",
+          "solution_id"
+        ],
+        "title": "OptimizationRecommendation"
+      },
+      "OptimizationRequest": {
+        "properties": {
+          "budget_usd": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Budget Usd",
+            "default": 4000000
+          },
+          "climate": {
+            "type": "string",
+            "title": "Climate",
+            "default": "semi-arid"
+          },
+          "pop_size": {
+            "type": "integer",
+            "maximum": 200.0,
+            "minimum": 20.0,
+            "title": "Pop Size",
+            "default": 80
+          },
+          "n_gen": {
+            "type": "integer",
+            "maximum": 200.0,
+            "minimum": 10.0,
+            "title": "N Gen",
+            "default": 60
+          },
+          "seed": {
+            "type": "integer",
+            "title": "Seed",
+            "default": 42
+          }
+        },
+        "type": "object",
+        "title": "OptimizationRequest"
+      },
+      "OptimizationRunData": {
+        "properties": {
+          "run_id": {
+            "type": "string",
+            "title": "Run Id"
+          },
+          "n_solutions": {
+            "type": "integer",
+            "title": "N Solutions"
+          },
+          "algorithm": {
+            "type": "string",
+            "title": "Algorithm"
+          },
+          "recommendation": {
+            "$ref": "#/components/schemas/OptimizationRecommendation"
+          },
+          "scenario_type": {
+            "type": "string",
+            "title": "Scenario Type",
+            "default": "DEMO"
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "required": [
+          "run_id",
+          "n_solutions",
+          "algorithm",
+          "recommendation"
+        ],
+        "title": "OptimizationRunData"
+      },
+      "RagQuery": {
+        "properties": {
+          "question": {
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 5,
+            "title": "Question"
+          },
+          "aoi_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Aoi Id"
+          },
+          "hotspot_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hotspot Id"
+          },
+          "climate": {
+            "type": "string",
+            "title": "Climate",
+            "default": "semi-arid"
+          },
+          "candidate_interventions": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Candidate Interventions"
+          }
+        },
+        "type": "object",
+        "required": [
+          "question"
+        ],
+        "title": "RagQuery"
+      },
+      "ScenarioCreate": {
+        "properties": {
+          "tree_canopy_percent": {
+            "type": "number",
+            "maximum": 50.0,
+            "minimum": 0.0,
+            "title": "Tree Canopy Percent",
+            "default": 0
+          },
+          "cool_roof_percent": {
+            "type": "number",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Cool Roof Percent",
+            "default": 0
+          },
+          "green_roof_percent": {
+            "type": "number",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Green Roof Percent",
+            "default": 0
+          },
+          "albedo_delta": {
+            "type": "number",
+            "maximum": 0.45,
+            "minimum": 0.0,
+            "title": "Albedo Delta",
+            "default": 0
+          },
+          "water_area_delta": {
+            "type": "number",
+            "maximum": 10.0,
+            "minimum": 0.0,
+            "title": "Water Area Delta",
+            "default": 0
+          },
+          "climate": {
+            "type": "string",
+            "title": "Climate",
+            "default": "semi-arid"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "aoi_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Aoi Id"
+          }
+        },
+        "type": "object",
+        "title": "ScenarioCreate"
+      },
+      "ScenarioRecord": {
+        "properties": {
+          "scenario_id": {
+            "type": "string",
+            "title": "Scenario Id"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "params": {
+            "type": "object",
+            "title": "Params"
+          },
+          "result": {
+            "$ref": "#/components/schemas/ScenarioResult"
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "required": [
+          "scenario_id",
+          "params",
+          "result"
+        ],
+        "title": "ScenarioRecord"
+      },
+      "ScenarioResponseData": {
+        "properties": {
+          "scenario_id": {
+            "type": "string",
+            "title": "Scenario Id"
+          },
+          "summary": {
+            "$ref": "#/components/schemas/ScenarioSummary"
+          },
+          "provenance": {
+            "type": "object",
+            "title": "Provenance"
+          },
+          "scenario_type": {
+            "type": "string",
+            "title": "Scenario Type",
+            "default": "DEMO"
+          },
+          "result": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ScenarioResult"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "required": [
+          "scenario_id",
+          "summary"
+        ],
+        "title": "ScenarioResponseData"
+      },
+      "ScenarioResult": {
+        "properties": {
+          "scenario_type": {
+            "type": "string",
+            "title": "Scenario Type",
+            "default": "DEMO"
+          },
+          "simulated_lst": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "title": "Simulated Lst"
+          },
+          "delta_lst": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "title": "Delta Lst"
+          },
+          "summary": {
+            "$ref": "#/components/schemas/ScenarioSummary"
+          },
+          "provenance": {
+            "type": "object",
+            "title": "Provenance"
+          },
+          "climate": {
+            "type": "string",
+            "title": "Climate",
+            "default": "semi-arid"
+          },
+          "params": {
+            "type": "object",
+            "title": "Params"
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "required": [
+          "simulated_lst",
+          "delta_lst",
+          "summary"
+        ],
+        "title": "ScenarioResult"
+      },
+      "ScenarioSummary": {
+        "properties": {
+          "mean_delta_lst": {
+            "type": "number",
+            "title": "Mean Delta Lst"
+          },
+          "max_cooling": {
+            "type": "number",
+            "title": "Max Cooling"
+          },
+          "mean_simulated_lst": {
+            "type": "number",
+            "title": "Mean Simulated Lst"
+          },
+          "min_simulated_lst": {
+            "type": "number",
+            "title": "Min Simulated Lst"
+          },
+          "max_simulated_lst": {
+            "type": "number",
+            "title": "Max Simulated Lst"
+          },
+          "population_benefited": {
+            "type": "integer",
+            "title": "Population Benefited"
+          },
+          "population_pct": {
+            "type": "number",
+            "title": "Population Pct"
+          },
+          "hotspot_count_before": {
+            "type": "integer",
+            "title": "Hotspot Count Before"
+          },
+          "hotspot_count_after": {
+            "type": "integer",
+            "title": "Hotspot Count After"
+          },
+          "estimated_cost_usd": {
+            "type": "number",
+            "title": "Estimated Cost Usd"
+          },
+          "scenario_type": {
+            "type": "string",
+            "title": "Scenario Type",
+            "default": "DEMO"
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "required": [
+          "mean_delta_lst",
+          "max_cooling",
+          "mean_simulated_lst",
+          "min_simulated_lst",
+          "max_simulated_lst",
+          "population_benefited",
+          "population_pct",
+          "hotspot_count_before",
+          "hotspot_count_after",
+          "estimated_cost_usd"
+        ],
+        "title": "ScenarioSummary"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  }
+}
